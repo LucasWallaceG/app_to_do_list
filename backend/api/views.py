@@ -24,6 +24,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     search_fields = ['title', 'description']
     filterset_fields = ['completed', 'category']
     ordering_fields = ['created_at', 'due_date', 'completed']
+    ordering = ['completed', '-created_at']
 
     def get_queryset(self):
         user = self.request.user
@@ -38,10 +39,6 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = UserSerializer
-
-    def perform_create(self, serializer):
-        user = serializer.save()
-        user.set_password(self.request.data.get('password'))
 
 
 class UserListView(generics.ListAPIView):
