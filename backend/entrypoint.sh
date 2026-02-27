@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Wait for database if necessary
-# echo "Waiting for postgres..."
-# while ! nc -z db 5432; do
-#   sleep 0.1
-# done
-# echo "PostgreSQL started"
+# Wait for database
+echo "Waiting for postgres..."
+while ! python -c "import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('db', 5432))" 2>/dev/null; do
+  sleep 1
+done
+echo "PostgreSQL started"
 
 # Apply database migrations
 python manage.py migrate

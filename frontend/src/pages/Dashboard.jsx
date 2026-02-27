@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import axios from 'axios';
 import {
     Plus,
     Trash2,
@@ -38,10 +39,21 @@ const Dashboard = () => {
     const [editingTask, setEditingTask] = useState(null);
     const [editingCategory, setEditingCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [advice, setAdvice] = useState('');
 
     useEffect(() => {
         fetchData();
-    }, [page, filter, statusFilter, categoryFilter]);
+        fetchAdvice();
+    }, [page, filter, statusFilter, categoryFilter, user]);
+
+    const fetchAdvice = async () => {
+        try {
+            const res = await axios.get('https://api.adviceslip.com/advice');
+            setAdvice(res.data.slip.advice);
+        } catch (err) {
+            console.error("Failed to fetch advice from external API");
+        }
+    };
 
     useEffect(() => {
         if (userSearch) {
@@ -240,6 +252,12 @@ const Dashboard = () => {
                 </aside>
 
                 <section className="tasks-area">
+                    {advice && (
+                        <div className="advice-box">
+                            <Quote size={18} className="quote-icon" />
+                            <p>"{advice}"</p>
+                        </div>
+                    )}
                     <div className="task-tools">
                         <form onSubmit={handleCreateTask} className="task-form">
                             <input
