@@ -17,7 +17,8 @@ import {
     Clock,
     Calendar,
     Palette,
-    Info
+    Info,
+    Quote
 } from 'lucide-react';
 
 const Dashboard = () => {

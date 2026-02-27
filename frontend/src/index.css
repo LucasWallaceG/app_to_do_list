@@ -290,6 +290,24 @@ body {
   margin: 0 auto;
 }
 
+.advice-box {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-style: italic;
+  color: #e2e8f0;
+}
+
+.quote-icon {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
 .task-tools {
   margin-bottom: 30px;
 }
