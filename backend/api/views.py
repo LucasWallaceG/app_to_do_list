@@ -1,7 +1,8 @@
 from rest_framework import viewsets, permissions, filters
 from django.db.models import Q
 from rest_framework import generics
-from api.serializers import UserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from api.serializers import UserSerializer, CustomTokenObtainPairSerializer
 from django.contrib.auth.models import User
 from api.models import Category, Task
 from api.serializers import CategorySerializer, TaskSerializer
@@ -47,3 +48,6 @@ class UserListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter]
     search_fields = ['username', 'email']
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
